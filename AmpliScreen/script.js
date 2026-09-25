@@ -86,52 +86,96 @@ document.getElementById('qtyPlus').addEventListener('click', () => {
 });
 
 // Form validation + submit
-const form = document.getElementById('orderForm');
-const modalOverlay = document.getElementById('modalOverlay');
-const modalText = document.getElementById('modalText');
-const whatsappConfirm = document.getElementById('whatsappConfirm');
 
-function setInvalid(fieldId, invalid){
-  const el = document.getElementById(fieldId);
-  if(!el) return;
-  el.classList.toggle('invalid', invalid);
-}
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('orderForm');
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalText = document.getElementById('modalText');
+  const whatsappConfirm = document.getElementById('whatsappConfirm');
 
-function validPhone(v){
-  const digits = v.replace(/\D/g,'');
-  return digits.length >= 10 && digits.length <= 14;
-}
+  if (!form) {
+    console.error('orderForm not found in DOM — check the form has id="orderForm"');
+    return;
+  }
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const name = document.getElementById('fullname').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const stateSel = document.getElementById('state').value;
-  const address = document.getElementById('address').value.trim();
+  function setInvalid(fieldId, invalid){
+    const el = document.getElementById(fieldId);
+    if(!el) return;
+    el.classList.toggle('invalid', invalid);
+  }
 
-  let ok = true;
-  setInvalid('field-name', name.length < 3); if(name.length < 3) ok = false;
-  setInvalid('field-phone', !validPhone(phone)); if(!validPhone(phone)) ok = false;
-  setInvalid('field-state', !stateSel); if(!stateSel) ok = false;
-  setInvalid('field-address', address.length < 6); if(address.length < 6) ok = false;
+  function validPhone(v){
+    const digits = v.replace(/\D/g,'');
+    return digits.length >= 10 && digits.length <= 14;
+  }
 
-  if(!ok) return;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault(); // <-- this line now WILL run, stopping the page leaving
 
-  const total = unitPrice(state.qty);
-  const label = `${state.qty} Unit${state.qty > 1 ? 's' : ''}`;
-  modalText.textContent = `${name}, your order for ${label} (${formatNaira(total)}) to ${stateSel} is confirmed. We'll call ${phone} shortly — pay the rider in cash on arrival.`;
+    const name = document.getElementById('fullname').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const stateSel = document.getElementById('state').value;
+    const address = document.getElementById('address').value.trim();
 
-  const waText = encodeURIComponent(
-    `Hi AmpliScreen, I'd like to confirm my order:\nName: ${name}\nPhone: ${phone}\nState: ${stateSel}\nAddress: ${address}\nPack: ${label}\nTotal: ${formatNaira(total)} (Pay on Delivery)`
-  );
-  whatsappConfirm.href = `https://wa.me/2348054624377?text=${waText}`;
+    let ok = true;
+    setInvalid('field-name', name.length < 3); if(name.length < 3) ok = false;
+    setInvalid('field-phone', !validPhone(phone)); if(!validPhone(phone)) ok = false;
+    setInvalid('field-state', !stateSel); if(!stateSel) ok = false;
+    setInvalid('field-address', address.length < 6); if(address.length < 6) ok = false;
 
-  modalOverlay.classList.add('open');
-});
+    if(!ok) return;
 
-document.getElementById('closeModal').addEventListener('click', () => {
-  modalOverlay.classList.remove('open');
-});
-modalOverlay.addEventListener('click', (e) => {
-  if(e.target === modalOverlay) modalOverlay.classList.remove('open');
+    const total = unitPrice(state.qty);
+    const label = `${state.qty} Unit${state.qty > 1 ? 's' : ''}`;
+
+    const submitBtn = form.querySelector('.submit-btn');
+    const originalBtnText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Placing order...';
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          'Full name': name,
+          'Phone number': phone,
+          'State': stateSel,
+          'Delivery address': address,
+          'Quantity of packs': label,
+          'Total': formatNaira(total),
+          '_subject': 'New order from fathiu.com'
+        })
+      });
+
+      const data = await response.json();
+      if (!response.ok || data.success === 'false') throw new Error('Submission failed');
+
+      modalText.textContent = `${name}, your order for ${label} (${formatNaira(total)}) to ${stateSel} is confirmed. We'll call ${phone} shortly — pay the rider in cash on arrival.`;
+
+      const waText = encodeURIComponent(
+        `Hi AmpliScreen, I'd like to confirm my order:\nName: ${name}\nPhone: ${phone}\nState: ${stateSel}\nAddress: ${address}\nPack: ${label}\nTotal: ${formatNaira(total)} (Pay on Delivery)`
+      );
+      whatsappConfirm.href = `https://wa.me/2348054624377?text=${waText}`;
+
+      modalOverlay.classList.add('open'); // <-- modal shows here, page never left
+      form.reset();
+    } catch (err) {
+      alert('Something went wrong sending your order. Please try again or contact us on WhatsApp.');
+      console.error(err);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalBtnText;
+    }
+  });
+
+  document.getElementById('closeModal').addEventListener('click', () => {
+    modalOverlay.classList.remove('open');
+  });
+  modalOverlay.addEventListener('click', (e) => {
+    if(e.target === modalOverlay) modalOverlay.classList.remove('open');
+  });
 });

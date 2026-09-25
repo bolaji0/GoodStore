@@ -259,26 +259,26 @@
       <h2>Delivery details</h2>
       <div class="sub">Fill this in and pay cash to the rider when your order arrives.</div>
 
-      <form id="" action="https://formsubmit.co/customerserviceshome@gmail.com" method="POST" novalidate >
-        <input type="hidden" name="_next" value="">
-        <input type="hidden" name="_subject" value="New message from fathiu.com">
+      <form id="orderForm" action="https://formsubmit.co/ajax/customerserviceshome@gmail.com" method="POST" novalidate>
+        <input type="hidden" name="_subject" value="New order from fathiu.com">
         <input type="hidden" name="_captcha" value="false">
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
         <div class="field" id="field-name">
           <label for="fullname">Full name</label>
-          <input type="text" id="fullname" placeholder="e.g. Segun Daniels">
+          <input type="text" id="fullname" name="fullname" placeholder="e.g. Segun Daniels">
           <div class="error-msg">Please enter your full name.</div>
         </div>
 
         <div class="field-row">
           <div class="field" id="field-phone">
             <label for="phone">Phone number</label>
-            <input type="tel" id="phone" placeholder="080X XXX XXXX">
+            <input type="tel" id="phone" name="phone" placeholder="080X XXX XXXX">
             <div class="error-msg">Enter a valid Nigerian phone number.</div>
           </div>
           <div class="field" id="field-state">
             <label for="state">State</label>
-            <select id="state">
+            <select id="state" name="state">
               <option value="">Select state</option>
               <option>Lagos</option>
               <option>Abuja</option>
@@ -298,7 +298,7 @@
 
         <div class="field" id="field-address">
           <label for="address">Delivery address</label>
-          <input type="text" id="address" placeholder="House number, street, area">
+          <input type="text" id="address" name="address" placeholder="House number, street, area">
           <div class="error-msg">Please enter your delivery address.</div>
         </div>
 
