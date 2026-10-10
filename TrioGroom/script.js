@@ -5,6 +5,7 @@
   const offers = {1:25000,2:45000,3:65000};
   const naira = n => new Intl.NumberFormat('en-NG',{style:'currency',currency:'NGN',maximumFractionDigits:0}).format(Number(n));
   let quantity=1, started=false, submitting=false, created=false;
+  let pendingOrder = null;
   const form=document.getElementById('order-form'), error=document.getElementById('form-error'), submit=document.getElementById('submit-order');
   // A small adapter to the supplied tracker, never a second analytics system.
   const queue=[];
@@ -35,11 +36,35 @@
     if(city.length<2)return fail('city','Please enter your area or LGA.');
     if(address.length<10)return fail('address','Please add your house number, street and a nearby landmark.');
     if(!document.getElementById('consent').checked)return fail('consent','Please confirm you are available to receive and pay for your order.','required');
+    const orderData = {
+      quantity,
+      customer_name: fullname,
+      phone: primary,
+      alternate_phone: alternate,
+      state: document.getElementById('state').value,
+      city,
+      address
+    };
+
+    const fingerprint = JSON.stringify(orderData);
+
+    // Reuse the same key when retrying the same order.
+    // Create a new key only when order details change.
+    if (!pendingOrder || pendingOrder.fingerprint !== fingerprint) {
+      pendingOrder = {
+        fingerprint,
+        requestKey: crypto.randomUUID()
+      };
+    }
     submitting=true;submit.disabled=true;submit.textContent='Sending your order…';
     try{
       const gs=window.GoodStore;if(!gs||typeof gs.order!=='function')throw new Error('unavailable');
       if(typeof gs.ready==='function')await gs.ready();
-      const result=await gs.order({quantity,customer_name:fullname,phone:primary,alternate_phone:alternate,state:document.getElementById('state').value,city,address});
+
+      const result = await gs.order({
+        ...orderData,
+        request_key: pendingOrder.requestKey
+      });
       if(!result || result.ok!==true || !result.order || !result.order.id)throw new Error('not_created');
       created=true;
       const panel=document.getElementById('confirmation');panel.replaceChildren();
@@ -48,7 +73,12 @@
       row('Order reference: '+(result.order_id || result.order?.id || 'Contact support for your reference'));
       for(const [label,value] of [['Product',result.order.product_price],['Delivery',result.order.delivery_charge],['Pay on delivery',result.order.amount_due]]){row(label+': '+(value!==undefined && value!==null && Number.isFinite(Number(value))?naira(value):'Awaiting backend confirmation'));}
       row('GoodStore will contact you to confirm your delivery.');
-      const link=document.createElement('a');link.href='https://wa.me/2348054624377?text='+encodeURIComponent('Hello GoodStore, please help with my TrioGroom order '+(result.order_id || result.order?.id || ''));link.className='text-link';link.textContent='Contact GoodStore on WhatsApp ↗';link.dataset.gsEvent='whatsapp_click';link.dataset.gsLabel='whatsapp_confirmation';panel.append(link);
+      const link=document.createElement('a');link.href =
+      'https://wa.me/2348054624377?text=' +
+      encodeURIComponent(
+      'Hello GoodStore, please help with my TrioGroom order ' +
+      (result.order?.id || '')
+    );link.className='text-link';link.textContent='Contact GoodStore on WhatsApp ↗';link.dataset.gsEvent='whatsapp_click';link.dataset.gsLabel='whatsapp_confirmation';panel.append(link);
       panel.hidden=false;panel.focus();submit.textContent='Order received ✓';
     }catch(_){error.textContent='We could not confirm your order. Please try again when your connection is stable, or contact WhatsApp support. If you already received a confirmation, contact support before retrying.';error.hidden=false;submit.disabled=false;submit.textContent='Retry my cash-on-delivery order ↗';}
     finally{submitting=false;}
