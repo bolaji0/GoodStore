@@ -1,0 +1,21 @@
+GoodStore TrioGroom launch integration patch
+
+Changes:
+- Matches D1 pricing: 1=25000, 2=45000, 3=65000; free delivery.
+- Points tracker at deployed workers.dev URL (not unconfigured api.goodstore.com.ng).
+- Uses GoodStore.order() and GoodStore.ready() from actual Worker tracker.
+- Reads order.id, product_price, delivery_charge and amount_due from API response.
+- Uses supported form_validation_error event.
+- Adds section-view and video playback tracking.
+- Keeps original CSS, content, WhatsApp number and image/video paths.
+
+REQUIRED: Copy your original assets/ folder beside index.html, script.js, styles.css.
+Test actual hosted page and test order on phone and desktop before advertising.
+No admin secret belongs in public files.
+
+IMPORTANT remaining backend risks: no order idempotency, rate limiting or anti-bot protection.
+Current tracker uses localStorage without try/catch; restricted browsers may fail.
+Current backend rejects sessions that fail, which prevents checkout even when order fields are valid.
+CORS currently falls back to * for unlisted origins.
+No real-time notification or private admin dashboard has been set up.
+The frontend's product media, customer reviews, shipping coverage and stock must be independently verified.
