@@ -5,13 +5,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#118444">
-  <meta name="description" content="Gold 3-in-1 personal grooming kit: clipper, facial shaver and nose trimmer. ₦25,000 (was ₦50,000) with free delivery. Pay on delivery.">
-  <title>Gold 3-in-1 Grooming Kit | ₦25,000 · Pay on delivery</title>
+  <meta name="description" content="Gold 3-in-1 personal grooming kit: clipper, facial shaver and nose trimmer. ₦27,000 (was ₦54,000) with free delivery. Pay on delivery.">
+  <title>Gold 3-in-1 Grooming Kit | ₦27,000 · Pay on delivery</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     /* Slashed "original price" - only affects the new elements below */
     .price-pair { display: inline-flex; align-items: baseline; justify-content: center; flex-wrap: wrap; gap: .1em .45em; font-style: normal; }
     .was-price { text-decoration: line-through; text-decoration-thickness: 2px; font-weight: 400; font-size: .72em; opacity: .7; white-space: nowrap; }
+
+    /* 50% OFF starburst badge (pure CSS, no image needed) */
+    .badge-50 { display: flex; align-items: center; justify-content: center; width: 104px; height: 104px; margin: 14px auto; background: #e8262b; color: #fff; font-weight: 900; font-size: 24px; line-height: 1; text-align: center; transform: rotate(-8deg); clip-path: polygon(50.0% 0.0%, 55.5% 8.4%, 62.9% 1.7%, 66.1% 11.2%, 75.0% 6.7%, 75.6% 16.7%, 85.4% 14.6%, 83.3% 24.4%, 93.3% 25.0%, 88.8% 33.9%, 98.3% 37.1%, 91.6% 44.5%, 100.0% 50.0%, 91.6% 55.5%, 98.3% 62.9%, 88.8% 66.1%, 93.3% 75.0%, 83.3% 75.6%, 85.4% 85.4%, 75.6% 83.3%, 75.0% 93.3%, 66.1% 88.8%, 62.9% 98.3%, 55.5% 91.6%, 50.0% 100.0%, 44.5% 91.6%, 37.1% 98.3%, 33.9% 88.8%, 25.0% 93.3%, 24.4% 83.3%, 14.6% 85.4%, 16.7% 75.6%, 6.7% 75.0%, 11.2% 66.1%, 1.7% 62.9%, 8.4% 55.5%, 0.0% 50.0%, 8.4% 44.5%, 1.7% 37.1%, 11.2% 33.9%, 6.7% 25.0%, 16.7% 24.4%, 14.6% 14.6%, 24.4% 16.7%, 25.0% 6.7%, 33.9% 11.2%, 37.1% 1.7%, 44.5% 8.4%); }
+    /* Free gift highlight line */
+    .gift-line { margin: .7em 0; text-align: center; font-weight: 800; color: #118444; }
+    /* Footer disclaimer */
+    .disclaimer { max-width: 46rem; margin: 14px auto 0; padding: 12px 16px 0; border-top: 1px solid rgba(128,128,128,.35); font-size: .75rem; line-height: 1.55; text-align: center; opacity: .8; }
   </style>
 </head>
 
@@ -33,16 +40,33 @@
         data-gs-video="hero_demo" width="480" controls muted playsinline loop
         preload="metadata" aria-label="hero demo"></video>
 
+      <div class="badge-50" role="img" aria-label="50% off"><span>50%<br>OFF</span></div>
+
       <div class="price-banner">
         <span>GET THE COMPLETE KIT FOR</span>
-        <i class="price-pair"><s class="was-price">₦50,000</s><strong>₦25,000</strong></i>
+        <i class="price-pair"><s class="was-price">₦54,000</s><strong>₦27,000</strong></i>
         <b>FREE DELIVERY · PAY ON DELIVERY</b>
       </div>
+
+      <p class="gift-line">+ FREE FOLDING DESKTOP PHONE STAND</p>
 
       <a class="button" href="#order" data-gs-event="cta_click" data-gs-label="hero_order_now">
         YES! I WANT MY GROOMING KIT ↓
       </a>
       <p class="small reassurance">No advance payment. We contact you on WhatsApp (call or message) before dispatch.</p>
+    </section>
+
+    <!-- ============ FREE GIFT ============ -->
+    <section class="visual-section gift-section" id="free-gift">
+      <div class="function-label">FREE GIFT INCLUDED</div>
+      <h2>FREE FOLDING DESKTOP PHONE STAND</h2>
+      <img class="product-photo" src="assets/folding-desktop-phone-stand.jpeg" width="554" height="554" loading="lazy"
+        alt="Black folding desktop phone stand with a round base">
+      <p>Order the 3-in-1 grooming kit and your <strong>folding desktop phone stand</strong> comes free with it. Keep your phone upright on your desk or table.</p>
+      <p class="small">The free gift is included with your order while the offer lasts.</p>
+      <a class="button" href="#order" data-gs-event="cta_click" data-gs-label="gift_order_now">
+        GET MY KIT + FREE GIFT ↓
+      </a>
     </section>
 
     <!-- ============ PRODUCT OVERVIEW ============ -->
@@ -62,7 +86,7 @@
         preload="none" aria-label="kit demo"></video>
 
       <a class="button" href="#order" data-gs-event="cta_click" data-gs-label="package_order_now">
-        GET 1 SET FOR <s class="was-price">₦50,000</s> ₦25,000 — FREE DELIVERY ↓
+        GET 1 SET FOR <s class="was-price">₦54,000</s> ₦27,000 — FREE DELIVERY ↓
       </a>
     </section>
 
@@ -243,18 +267,20 @@
     <section class="offers" data-gs-view="offer_view">
       <h2>CHOOSE YOUR COMPLETE KIT</h2>
       <p class="offer-title">
-        1 SET = <s class="was-price">₦50,000</s> ₦25,000<br>
-        2 SETS = <s class="was-price">₦100,000</s> ₦45,000<br>
-        3 SETS = <s class="was-price">₦150,000</s> ₦65,000
+        1 SET = <s class="was-price">₦54,000</s> ₦27,000<br>
+        2 SETS = <s class="was-price">₦108,000</s> ₦45,000<br>
+        3 SETS = <s class="was-price">₦162,000</s> ₦65,000
       </p>
+      <div class="badge-50" role="img" aria-label="50% off"><span>50%<br>OFF</span></div>
       <p><strong>FREE DELIVERY ON ALL OFFERS</strong></p>
+      <p class="gift-line">+ FREE FOLDING DESKTOP PHONE STAND WITH YOUR ORDER</p>
 
       <div class="plans">
         <button class="plan selected" type="button" data-quantity="1" aria-pressed="true"
           data-gs-event="plan_select" data-gs-label="pricing_1_unit" data-gs-meta='{"quantity":1}'>
           <span class="plan-top">1 COMPLETE SET <span class="radio"></span></span>
           <h3>1 TrioGroom set</h3>
-          <i class="price-pair"><s class="was-price">₦50,000</s><strong>₦25,000</strong></i>
+          <i class="price-pair"><s class="was-price">₦54,000</s><strong>₦27,000</strong></i>
           <p>Free delivery · Cash on delivery</p>
         </button>
 
@@ -262,16 +288,16 @@
           data-gs-event="plan_select" data-gs-label="pricing_2_units" data-gs-meta='{"quantity":2}'>
           <span class="plan-top">2 COMPLETE SETS <span class="radio"></span></span>
           <h3>2 TrioGroom sets</h3>
-          <i class="price-pair"><s class="was-price">₦100,000</s><strong>₦45,000</strong></i>
-          <p>Save ₦5,000 against two singles</p>
+          <i class="price-pair"><s class="was-price">₦108,000</s><strong>₦45,000</strong></i>
+          <p>Save ₦9,000 against two singles</p>
         </button>
 
         <button class="plan" type="button" data-quantity="3" aria-pressed="false"
           data-gs-event="plan_select" data-gs-label="pricing_3_units" data-gs-meta='{"quantity":3}'>
           <span class="plan-top">3 COMPLETE SETS <span class="radio"></span></span>
           <h3>3 TrioGroom sets</h3>
-          <i class="price-pair"><s class="was-price">₦150,000</s><strong>₦65,000</strong></i>
-          <p>Save ₦10,000 against three singles</p>
+          <i class="price-pair"><s class="was-price">₦162,000</s><strong>₦65,000</strong></i>
+          <p>Save ₦16,000 against three singles</p>
         </button>
       </div>
 
@@ -292,9 +318,10 @@
           <div class="summary">
             <p>YOUR SELECTED PACKAGE</p>
             <h3 id="package-name">1 TrioGroom set</h3>
-            <div><span>Product</span><i class="price-pair"><s class="was-price" data-was-dyn>₦50,000</s><strong id="package-price">₦25,000</strong></i></div>
+            <div><span>Product</span><i class="price-pair"><s class="was-price" data-was-dyn>₦54,000</s><strong id="package-price">₦27,000</strong></i></div>
             <div><span>Delivery</span><strong>FREE</strong></div>
-            <div class="summary-total"><span>Pay on delivery</span><i class="price-pair"><s class="was-price" data-was-dyn>₦50,000</s><strong id="package-total">₦25,000</strong></i></div>
+            <div><span>Free gift</span><strong>Folding phone stand</strong></div>
+            <div class="summary-total"><span>Pay on delivery</span><i class="price-pair"><s class="was-price" data-was-dyn>₦54,000</s><strong id="package-total">₦27,000</strong></i></div>
           </div>
 
           <p class="fine">Tell us your state and area. We'll confirm coverage and the earliest delivery date when we contact you on WhatsApp (call or message).</p>
@@ -366,6 +393,11 @@
       </details>
 
       <details>
+        <summary data-gs-event="faq_open" data-gs-label="faq_gift">What is the free gift?</summary>
+        <p>Your order includes a free folding desktop phone stand. We'll confirm the gift with you on WhatsApp before dispatch.</p>
+      </details>
+
+      <details>
         <summary data-gs-event="faq_open" data-gs-label="faq_payment">Do I have to pay before delivery?</summary>
         <p>No. This is cash on delivery. Place your order here and pay when it arrives. We do not request a bank transfer or card payment on this page.</p>
       </details>
@@ -398,7 +430,7 @@
       <a class="button final-cta" href="#order" data-gs-event="cta_click" data-gs-label="final_order_now">
         Tidy up with TrioGroom — order now ↗
       </a>
-      <p class="fine">1 kit: <s class="was-price">₦50,000</s> ₦25,000 · 2 kits: <s class="was-price">₦100,000</s> ₦45,000 · Free delivery · Pay on delivery</p>
+      <p class="fine">1 kit: <s class="was-price">₦54,000</s> ₦27,000 · 2 kits: <s class="was-price">₦108,000</s> ₦45,000 · Free delivery · Pay on delivery</p>
     </section>
 
   </main>
@@ -410,13 +442,19 @@
     </p>
     <p class="small">Please use WhatsApp only. Normal phone calls are not answered.</p>
     <p>Sold by GoodStore · TrioGroom / TRG001</p>
+    <p class="disclaimer">
+      <strong>Disclaimer:</strong> Images and videos are for illustration. The colour, shape and accessories of the items you receive may differ slightly, and we confirm what is supplied before dispatch.
+      The 50% off price and the free folding desktop phone stand are promotional offers available while stock lasts and may change or end without notice.
+      Customer feedback reflects individual experiences; results and delivery times may vary.
+      Delivery is arranged and confirmed on WhatsApp (call or message). Normal phone calls are not answered.
+    </p>
   </footer>
 
   <!-- ============ STICKY ORDER BAR ============ -->
   <div class="sticky">
     <div>
       <small>FREE DELIVERY · PAY ON DELIVERY</small>
-      <i class="price-pair"><s class="was-price" data-was-dyn>₦50,000</s><strong id="sticky-price">₦25,000 <span>/ 1 kit</span></strong></i>
+      <i class="price-pair"><s class="was-price" data-was-dyn>₦54,000</s><strong id="sticky-price">₦27,000 <span>/ 1 kit</span></strong></i>
     </div>
     <a class="button" href="#order" data-gs-event="cta_click" data-gs-label="sticky_order_now">ORDER NOW ↓</a>
   </div>
@@ -426,7 +464,7 @@
   <script>
     // Keeps the slashed (original) prices in step with the selected plan
     (function () {
-      var was = { 1: '₦50,000', 2: '₦100,000', 3: '₦150,000' };
+      var was = { 1: '₦54,000', 2: '₦108,000', 3: '₦162,000' };
       document.addEventListener('click', function (e) {
         var plan = e.target.closest && e.target.closest('.plan');
         if (!plan) return;
